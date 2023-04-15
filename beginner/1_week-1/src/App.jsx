@@ -1,27 +1,18 @@
 import React from 'react';
+import './App.css';
 
 function App() {
-  const wrapStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: '10px',
-  };
-  
-  const eachStyle = {
-    width: '100px',
-    height: '100px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    border: '1px solid green',
-    borderRadius: '10px',
-  }
+  const vegetables = ["감자", "고구마", "오이", "가지", "옥수수"];
 
   return (
-    <div style={wrapStyle}>
-      <section style={eachStyle}>감자</section>
-      <section style={eachStyle}>고구마</section>
+    <div id="wrap">
+      {vegetables.filter(name => {
+        return name !== '감자';
+      })
+      .map((item) => {
+        return <section key="{item}">{item}</section>;
+      })
+      };
     </div>
   )
 }
