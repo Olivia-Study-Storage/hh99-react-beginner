@@ -1,18 +1,31 @@
-import './App.css';
-
-// im : 안쪽 (들여온다)
-// ex(out) : 바깥쪽 (내보낸다)
-
-// 컴포넌트 (여기서는 App) 의 이름은 무조건 대문자로 시작해야 한다.
-// 안의 폴더는 카멜케이스로 작성한다. ex.componentFolder
+import React from 'react';
 function App() {
-  // 여기가 자바스크립트를 쓸 수 있는 영역이다.
+
+  // <---- 자바스크립트 영역 ---->
+  // function clickHandler() {
+  //   alert('클릭!');
+  // }
+
+  // 화살표 함수로 표현하기
+  const clickHandler = () => {
+    alert('클릭!');
+  }
 
   return (
-    // HTML이 아닌, JSX(JavaScript + XML (작스)) 문법!
-    // js를 쓰고 싶다면 {}를 이용해 사용한다.
-    <div>
-      Learn Reactttttttt!
+  /* <---- HTML/JSX 영역  ---->*/
+    <div
+      // JSX 문법 안에서 태그에 스타일을 부여하기 위해서는
+      // key-value 페어로 되어있는 '객체'를 JS 문법으로 넣어주면 된다.
+      style={{
+        height: '100vh',
+        display: ' flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <p>이것은 내가 만든 App 컴포넌트 입니다.</p>
+      <button onClick={clickHandler}>클릭!</button>
     </div>
   );
 }
