@@ -1,0 +1,10 @@
+#wrap {
+  margin: auto;
+  width: 400px;
+  text-align: center;
+}
+
+button {
+  width: 30px;
+  margin-right: 2px;
+}
