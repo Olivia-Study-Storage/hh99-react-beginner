@@ -1,16 +1,19 @@
 import React from 'react'
 
-// function Child(props) {
-// * 위의 props를 구조분해할당으로 아래와 같이 나눠서 데이터를 받아올 수 있다
-// * 이렇게 구조분해할당을 하면 어떤 props가 쓰이는지를 직관적으로 알 수 있다
+// * [defaultProps] 부모 컴포넌트에서 props를 보내주지 않아도 설정될 (임시) 초기 값
+// 부모 컴포넌트에서 해당 props가 내려오면 defaultProps는 사라지고 내려받은 props값으로 변경된다
 function Child({ age, name, children }) {
-  // console.log(props);
   console.log(age);
   console.log(name);
   console.log(children);
+
   return (
     <div>Child</div>
   )
+}
+
+Child.defaultProps = {
+  name: 'Olivia',
 }
 
 export default Child
