@@ -1,30 +1,26 @@
-import React from 'react';
+import React from 'react'
 
-// * props
-// 컴포넌트 간의 정보 교류 방법
-// 1. 반드시 위에서 아래 방향으로 흐른다. (부모 -> 자식의 단방향)
-// 2. props는 반드시 읽기 전용으로 취급하며, 변경하지 않는다.
+// * children을 쓰지 않고 데이터를 내려주는 법
+// function App() {
+//   const name = '상위 컴포넌트 이름';
+//   return <User name={name}/>
+// }
+// function User(props) {
+//   return <div>{props.name}</div>
+// }
 
+// * children을 써서 데이터를 내려주는 법
+// 자식 컴포넌트는 여는 태그, 닫는 태그 사이에 어떤 값을 둔다면
+// 그것은 children으로서 인식이 되어 <User children={~}></User>라고 쓰지 않아도 props라고 주어진다.
+
+// ? children을 굳이 쓰는 이유?
+// 만약 다른 페이지(예를 들어 footer)를 같이 쓴다면 해당 페이지를 children으로 편하게 불러올 수 있다.
 function App() {
-  return <GrandFather />;
+  return <User>안녕하세요!</User>
 }
 
-function GrandFather() {
-  const name = '김박사';
-  return <Mother grandFatherName={name}/>;
+function User(props) {
+  return <div>{props.children}</div>
 }
 
-function Mother(props) {
-	const name = `${props.grandFatherName}의 딸인 홍부인`;
-  return <Child motherName={ name }/>;
-}
-
-// props로 값을 전달받아 화면에 렌더링
-// * [prop drilling]
-// 하위 컴포넌트로 전달하는 용도로만 쓰이는 컴포넌트를 거치면서
-// React Component 트리의 한 부분에서 다른 부분으로 데이터를 전달하는 과정
-function Child(props) {
-  return <div>나는 { props.motherName }의 아들입니다.</div>;
-}
-
-export default App;
+export default App
