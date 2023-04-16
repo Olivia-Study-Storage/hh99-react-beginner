@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header'
 
 function App() {
   return (
     <div className="wrap">
       {/* Header */}
-      <section className="header">
-        <span className="header__title">My Todo List</span>
-        <span className="header__name">React</span>
-      </section>
+      <Header />
 
       {/* Form */}
       <section className="form">
