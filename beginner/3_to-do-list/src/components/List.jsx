@@ -8,12 +8,9 @@ function List({ todos, setTodos }) {
         <h1>🔥Working🔥</h1>
         <div className="list__area">
         {
-          todos.filter((todo) => {
-            return !todo.isDone;
-          })
-          .map((item) => {
-            return <ListMap key={item.id} todos={todos} setTodos={setTodos} item={item} />;
-          })
+          todos
+          .filter((todo) => !todo.isDone)
+          .map((item) => <ListMap key={item.id} todos={todos} setTodos={setTodos} item={item} />)
         }
         </div>
       </div>
@@ -22,16 +19,12 @@ function List({ todos, setTodos }) {
         <h1>🎉Done🎉</h1>
         <div className="list__area">
         {
-          todos.filter((todo) => {
-            return todo.isDone;
-          })
-          .map((item) => {
-            return <ListMap key={item.id} todos={todos} setTodos={setTodos} item={item} />;
-          })
+          todos
+          .filter((todo) => todo.isDone)
+          .map((item) => <ListMap key={item.id} todos={todos} setTodos={setTodos} item={item} />)
         }
         </div>
-      </div>
-      
+      </div>  
     </section>
   )
 }
