@@ -1,10 +1,16 @@
 #wrap {
+  width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+#content {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
-}
 
+}
 section {
   width: 100px;
   height: 100px;

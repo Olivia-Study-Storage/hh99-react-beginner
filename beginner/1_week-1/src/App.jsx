@@ -1,34 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-function User(props) {
-  return (
-    <>
-      <section>
-        {props.user.age}살 - {props.user.name}
-      </section>
-    </>
-  )
-}
-
 function App() {
-  const users = [
-    { id: 1, age: 30, name: "송중기" },
-    { id: 2, age: 24, name: "송강" },
-    { id: 3, age: 21, name: "김유정" },
-    { id: 4, age: 29, name: "구교환" },
-  ];
+  const [users, setUsers] = useState([]);
+
+  const [name, setName] = useState('');
+  const [age, setAge] = useState(0);
+
+  const nameChangeHandler = (event) => setName(event.target.value);
+  const ageChangeHandler = (event) => setAge(event.target.value);
+  const btnClickHandler = () => {
+    const newUsers = {
+      id: users.length + 1,
+      age,
+      name,
+    };
+    setUsers([...users, newUsers]);
+  }
 
   return (
     <div id="wrap">
-      {/* 
-        map 함수를 사용할 때는 key를 필수로 포함시켜야 한다!
-        key는 리액트가 어떤 항목을 변경, 추가, 삭제할지 식별하는 것을 돕기 때문에
-        엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 한다.
-      */}
-      {users.map(user => {
-        return <User key={user.id} user={user} />
-      })}
+      <div>
+        <label htmlFor="name">
+          이름 :&nbsp;
+          <input 
+            type="text"
+            id="name"
+            value={name}
+            onChange={nameChangeHandler}
+           />
+        </label>
+        <br />
+        <label htmlFor="age">
+          나이 :&nbsp;
+          <input 
+            type="text"
+            id="age"
+            value={age}
+            onChange={ageChangeHandler}
+           />
+        </label>
+        <br />
+        <button
+          onClick={btnClickHandler}
+        >추가</button>
+      </div>
+      <br />
+      <div id="content">
+        {users.map((item) => {
+          return (
+            <section key={item.id}>
+              {item.age} - {item.name}
+            </section>
+          )
+        })}
+      </div>
     </div>
   )
 }
