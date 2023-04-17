@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header'
 import Form from './components/Form';
-import List from './components/List';
+import ListWorking from './components/ListWorking';
+import ListDone from './components/ListDone';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -11,7 +12,8 @@ function App() {
     <div className="wrap">
       <Header />
       <Form todos={todos} setTodos={setTodos} />
-      <List todos={todos} setTodos={setTodos} />
+      <ListWorking todos={todos} setTodos={setTodos} />
+      <ListDone todos={todos} setTodos={setTodos} />
     </div>
   )
 }

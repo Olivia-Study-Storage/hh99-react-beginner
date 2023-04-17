@@ -57,10 +57,6 @@ button {
   color: white;
 }
 
-.list {
-  margin: 10px 20px;
-}
-
 .list__area {
   display: flex;
   flex-wrap: wrap;
