@@ -1,44 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
-  // ! useEffect의 clean up
-  // 컴포넌트가 화면에서 사라졌을 때 무언가를 어떻게 실행하는지의 과정을 클린 업(clean up)이라고 한다.
+// * useRef란?
+// DOM 요소에 접근할 수 있도록 하는 react hook
+// ! 설정된 ref값은 컴포넌트가 계속해서 렌더링되어도 umount 전까지 값을 유지한다!
 
-  // * clean up 하는 방법
-  // useEffect 안에 return을 해주고 이 부분에 실행되길 원하는 함수를 넣는다.
+// * 이러한 특징으로 인해 useRef는 다음 2가지 용도로 사용됨
+// 1. 저장공간으로서의 useRef
+//    - state와 비슷한 역할을 한다. (다만, state는 변화가 일어나면 리렌더링이 되고 내부 변수들은 초기화된다.)
+//    - ref에 저장한 값은 리렌더링을 일으키지 않는다. 따라서 ref의 값 변화가 일어나도 리렌더링으로 내부 변수가 초기화되지 않는다.
+//    ! 따라서 state는 리렌더링이 꼭 필요한 값을 다룰 때 쓰면 된다.
+//    ! 반면 ref는 리렌더링을 발생시키지 않는 값을 저장할 때 사용한다.
+// 2. DOM 요소 접근 방법으로서의 useRef
+//    - 렌더링되자마자 특정 input이 focusing되어야 한다면 useRef를 사용하면 된다.  
 
-  // ? chatGPT에게 질문 : 아래 코드에서 input에 값을 입력할 때마다 clean up이 실행되는 이유는 뭐야?
-  // 이 코드에서 clean up은 useEffect 혹은 value 변수가 변경될 때마다 실행된다.
-  // 컴포넌트가 처음 마운트될 때 useEffect가 실행되고, 이때 반환된 함수가 클린업 함수이다.
-  // 클린업 함수는 컴포넌트가 마운트 해제될 때 호출된다.
-
-  // 그리고 사용자가 input 엘리먼트에 값을 입력할 때마다 value 상태가 변경된다.
-  // value 값이 변경될 때마다 useEffect가 실행되며, 이전 실행에서 반환된 클린업 함수가 호출되기 전에 새로운 실행이 일어난다.
-
-  // 따라서 return 안의 콘솔은 value가 변경되어 useEffect가 새로 실행될 때마다 출력된다.
-  // ! 이것은 클린업 함수가 호출되는 것이 아니라 useEffect 자체가 새로운 실행을 하기 전에 이전 실행에서 반환된 클린업 함수를 호출하는 것이다.
-
+const style = {
+  border: '1px solid black',
+  margin: '10px',
+  padding: '10px',
+}
 
 function App() {
-  const [value, setValue] = useState('');
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
 
-  // clean up
-  useEffect(() => {
-    console.log('hello useEffect!');
-
-    return () => {
-      console.log('나 사라져요...!');
-    };
-  }, [value]);
-
+  // count의 숫자가 증가될 때마다 리렌더링이 일어난다.
+  const plusStateCountBtnHandler = () => setCount(count + 1);
+  // countRef.current의 값은 계속 증가되고 있지만 리렌더링은 일어나지 않는다.
+  const plusRefCountBtnHandler = () => {
+    countRef.current++;
+    console.log(countRef.current);
+  }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={value}
-        onChange={event => setValue(event.target.value)}
-      />
-    </div>
+    <>
+      <div style={style}>
+        state 영역입니다. {count}
+        <br />
+        <button
+          onClick={plusStateCountBtnHandler}
+        >
+          state 증가
+        </button>
+      </div>
+
+      <div style={style}>
+        {/* countRef라는건 객체이기 때문에 그 안에 있는 초기값에 접근하려면 .current로 들어가야 한다. */}
+        ref 영역입니다. {countRef.current}
+        <br />
+        <button
+          onClick={plusRefCountBtnHandler}
+        >
+          ref 증가
+        </button>
+      </div>
+    </>
   )
 }
 
