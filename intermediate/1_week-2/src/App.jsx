@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import TestPage from './components/TestPage';
+import GlobalStyle from './components/GlobalStyle'
 
-// * CSS in JS
-// js 코드로 css 코드를 작성해 컴포넌트를 꾸미는 방식
-// * styled-components
-// 리액트에서 CSS in JS 방식으로 컴포넌트를 꾸밀 수 있게 도와주는 패키지
-// * 패키지란?
-// 리액트에는 없지만 추가로 가져와서 사용할 수 있는 어떤 외부 라이브러리 (third-party)
-// * SC 기본 원리
-// 꾸미고자 하는 컴포넌트를 SC의 방식대로 먼저 만들고, 그 안에 스타일 코드 작성
+// * GlobalStyles (전역 스타일링)
+// SC는 해당 컴포넌트 내에서만 사용 가능하다.
+// 프로젝트 전체를 아우르는 스타일을 적용할 때는 전역 스타일을 지정한다.
 
-// style. 뒤에는 항상 html 요소가 온다.
 const StContainer = styled.div`
   display: flex;
 `;
@@ -40,19 +36,19 @@ const getBoxName = (color) => {
 
 function App() {
   return (
-    <StContainer>
-      {/* <StBox borderColor="red">박스</StBox>
-      <StBox borderColor="blue">박스</StBox>
-      <StBox borderColor="green">박스</StBox> */}
-      {
-        boxList.map(box => <StBox borderColor={box}>{getBoxName(box)}</StBox>)
-      }
-    </StContainer>
+  //   <StContainer>
+  //   {
+  //     boxList.map(box => <StBox borderColor={box}>{getBoxName(box)}</StBox>)
+  //   }
+  // </StContainer>
+    <>
+      <GlobalStyle />
+      <TestPage
+        title="제목입니다"
+        contents="내용입니다"
+      />
+    </>
   )
 }
 
 export default App
-
-// * 조건부 스타일링이란?
-// classname으로 구현하기 까다로운 조건부 스타일링을 SC를 사용하면 간편하게 가능하다.
-// if, switch, 삼항연산자 등...
