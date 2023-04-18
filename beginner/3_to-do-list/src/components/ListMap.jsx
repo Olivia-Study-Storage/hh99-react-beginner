@@ -8,8 +8,8 @@ function ListMap({ todos, setTodos, item }) {
 
   const onStatusClick = (id) => {
     const index = todos.findIndex(todo => todo.id === id);
-    let changeTodo = [...todos];
-    [...todos][index].isDone = !([...todos][index].isDone);
+    const changeTodo = [...todos];
+    changeTodo[index].isDone = !(changeTodo[index].isDone);
     setTodos(changeTodo);
   };
 
