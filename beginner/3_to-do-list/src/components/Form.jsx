@@ -10,6 +10,12 @@ function Form({ todos, setTodos }) {
 
   const onSubmitClick = (event) => {
     event.preventDefault();
+
+    if(title === '' || body === '') {
+      alert('투 두 리스트를 입력해주세요.');
+      return;
+    }
+
     const newTodo = {
       id: nanoid(),
       title,
