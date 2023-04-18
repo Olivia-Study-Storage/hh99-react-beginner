@@ -1,41 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
-// * useEffect란?
-// 리액트 '컴포넌트가 렌더링될 때마다' 특정 작업을 수행하도록 설정할 수 있는 hook
+  // ! useEffect의 clean up
+  // 컴포넌트가 화면에서 사라졌을 때 무언가를 어떻게 실행하는지의 과정을 클린 업(clean up)이라고 한다.
 
-// * useEffect는 언제 사용하는지?
-// 1. 어떤 컴포넌트가 화면에 보여졌을 때 내가 무언가를 실행하고 싶을 때
-// 2. 어떤 컴포넌트가 화면에서 사라졌을 때(return) 무언가를 실행하고 싶을 때
+  // * clean up 하는 방법
+  // useEffect 안에 return을 해주고 이 부분에 실행되길 원하는 함수를 넣는다.
 
-// * 의존성 배열(dependency array)이란?
-// useEffect(() => { ... }, [ ...dependency array... ]);
-// 이 배열에 값을 넣으면 그 값이 바뀔 때만 useEffect를 실행하도록 함
-// 어떤 함수를 컴포넌트가 렌더링될 때 단 한번만 실행하고 싶으면 의존성 배열을 [] 빈 상태로 넣는다.
+  // ? chatGPT에게 질문 : 아래 코드에서 input에 값을 입력할 때마다 clean up이 실행되는 이유는 뭐야?
+  // 이 코드에서 clean up은 useEffect 혹은 value 변수가 변경될 때마다 실행된다.
+  // 컴포넌트가 처음 마운트될 때 useEffect가 실행되고, 이때 반환된 함수가 클린업 함수이다.
+  // 클린업 함수는 컴포넌트가 마운트 해제될 때 호출된다.
+
+  // 그리고 사용자가 input 엘리먼트에 값을 입력할 때마다 value 상태가 변경된다.
+  // value 값이 변경될 때마다 useEffect가 실행되며, 이전 실행에서 반환된 클린업 함수가 호출되기 전에 새로운 실행이 일어난다.
+
+  // 따라서 return 안의 콘솔은 value가 변경되어 useEffect가 새로 실행될 때마다 출력된다.
+  // ! 이것은 클린업 함수가 호출되는 것이 아니라 useEffect 자체가 새로운 실행을 하기 전에 이전 실행에서 반환된 클린업 함수를 호출하는 것이다.
+
 
 function App() {
   const [value, setValue] = useState('');
 
-  // * 1. 처음에 화면에 렌더링 될 때의 예시
-  // useEffect(() => console.log('hello useEffect!'));
+  // clean up
+  useEffect(() => {
+    console.log('hello useEffect!');
 
-  // * 2. 리렌더링될 때마다 useEffect가 실행될 때의 예시
-  // * 의존성배열을 하지 않았을 때 useEffect의 흐름
-  // 1. input에 값을 입력
-  // 2. value, 즉 state가 변경
-  // 3. state가 바뀌었기 때문에 App 컴포넌트가 리렌더링
-  // 4. 리렌더링되었기 때문에 useEffect가 다시 실행됨
-  // 5. 3~4번 반복
-  // useEffect(() => console.log('hello useEffect!'));
+    return () => {
+      console.log('나 사라져요...!');
+    };
+  }, [value]);
 
-  // * 3. 의존성배열을 주입했을 때의 예시
-  // 의존성 배열에 아무 값도 입력하지 않았기 때문에 (조건이 없기 때문에)
-  // 맨 처음 렌더링되었을 때만 useEffect가 동작
-  useEffect(() => console.log('dependency array is null'), []);
-
-  // ? 그렇다면 의존성배열에 특정 값을 넣었을 때는?
-  // value가 바뀔 때마다 useEffect를 실행하도록 하는 예시
-  // 최초 렌더링될 때 위, 아래 useEffect가 모두 실행되고 value값이 변경되면 아래의 useEffect만 실행됨
-  useEffect(() => console.log('dependency array -> value'), [value]);
 
   return (
     <div>
