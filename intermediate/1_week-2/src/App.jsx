@@ -1,10 +1,8 @@
 import React from 'react';
 
-// * Sass(Syntactically Awesome Style Sheets)
-// 코드의 재사용성을 높이고 가독성 향상을 위해 사용하는 style sheet
-// 1. 변수를 사용할 수 있다.
-// 2. 중첩할 수 있다. (Nesting)
-// 3. 다른 style 파일을 import할 수 있다.
+// * CSS Reset
+// 브라우저는 기본적으로 default style을 제공한다.
+// 따라서 이를 초기화하고 우리가 정해는대로만 표현하는 것이 중요하다.
 
 function App() {
   return (
