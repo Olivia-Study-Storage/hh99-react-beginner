@@ -12,6 +12,14 @@ const initialState = {
 // action(state를 어떻게 할 것인지에 대한 표현) 객체는 타입을 가지고 있다.
 const counter = (state = initialState, action) => {
   switch (action.type) {
+    case 'PLUS_ONE':
+      return {
+        number: state.number + 1,
+      };
+    case 'MINUS_ONE':
+      return {
+        number: state.number - 1,
+      };
     default:
       return state;
   }
