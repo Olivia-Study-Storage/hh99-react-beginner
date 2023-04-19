@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 // ! Redux (=== 전역 상태관리 라이브러리)
 // * JavsScript 애플리케이션에서 상태(State)를 관리하기 위한 패키지이다.
@@ -28,6 +29,13 @@ import React from 'react';
 // ex. 투두리스트일 경우 투두리스트에 필요한 state를 모두 모을 todos.js를 생성하고 이 파일이 곧 하나의 모듈이 됨
 
 function App() {
+  // 여기서 store에 접근하여 counter의 값을 읽어오려 한다.
+  // ! useSelector (redux hook) 사용
+  // state : 중앙저장소 안에 있는 모든 state
+  const data = useSelector((state) => {
+    console.log(state.counter);
+  });
+
   return (
     <div>App</div>
   )
