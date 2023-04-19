@@ -1,45 +1,71 @@
-import React from 'react';
-import HeavyComponent from './components/HeavyComponent';
+import React, { useEffect, useState, useMemo } from 'react';
 
-// ! useMemo
-// 동일한 값을 반환하는 함수를 계속 호출해야 한다면, 필요할 때마다 다시 함수를 호출해 계산하는게 아니라
-// 이미 저장한 '값(value)'을 단순히 꺼내와서 (캐싱해서) 재사용한다.
+function ObjectComponent() {
+  const [isAlive, setIsAlive] = useState(true);
+  const [uselessCount, setUselessCount] = useState(0);
+  
+  // * 문제상황
+  // useEffect를 이용해 me의 정보가 바뀌었을 때만 발동되도록 dependency Array를 넣어놨음에도
+  // 상관없는 count를 증가시킬 때 계속 console.log가 찍히고 있다.
 
-// * useMemo 사용 방법
-/*
-  const value = useMemo(() => {
-    return 반환할함수()
-  }, [dependencyArray]);
+  // ? 왜? 불변성과 관련이 깊다.
+  // 버튼이 선택되어 useleccCount state가 바뀌게 되면 '리렌더링'이 된다.
+  // -> 리렌더링이 되면 '컴포넌트 함수가 새로 호출'된다.
+  // -> 컴포넌트 함수가 새로 호출되면 'me 객체도 다시 재할당'한다. (이때, 다른 메모리 주소값 할당)
+  // -> useEffect의 dependency Array에 의해 me 객체가 바뀌었는지 확인해봐야 하는제 주소값이 다르므로
+  //    리액트 입장에서는 me가 바뀌었다고 인식하고 useEffect 내부 로직이 호출된다. 
+  // 이러한 상황을 해결하기 위해 useMemo를 이용할 수 있다.
 
-  dependencyArray값이 변경될 때만 반환할함수()가 호출되고
-  그 외의 경우에는 메모이제이션해놨던 값을 가져오기만 한다.
-*/
+  // * useMemo 사용 전
+  // const me = {
+  //   name: 'Ted Chang',
+  //   age: 21,
+  //   isAlive: isAlive ? '생존' : '사망',
+  // };
 
-// * React.memo로 Box1.jsx를 메모이제이션했는데도 리렌더링이 되는 이유
-// 함수형 컴포넌트를 사용하기 때문이고, 리렌더링되면서 initCount도 다시 만들어지기 때문이다.
-// JS에서는 함수도 객체의 한 종류이기 때문에 다시 만들어지면 그 주솟값이 달라지고
-// 이에 따라 하위 컴포넌트인 Box1.jsx는 props가 변경됐다고 인식한다.
+  // * useMemo 사용 후
+  const me = useMemo(() => {
+    return {
+      name: 'Ted Chang',
+      age: 21,
+      isAlive: isAlive ? '생존' : '사망',
+    };
+  }, [isAlive]);
 
-// ! useMemo를 남발하게 되면 별도의 메모리 확보를 너무 많이 하게 되기 때문에 오히려 성능이 악화될 수 있다.
-// 따라서 필요할 떄만 쓰는게 좋다.
 
-// heavy work라는 엄청 무거운 작업이라는 가정하에 진행
-function App() {
-  return <>
-    <nav style={{
-      backgroundColor: 'salmon',
-      marginBottom: '30px',
-    }}>
-      네비게이션 바
-    </nav>
-    <HeavyComponent />
-    <footer style={{
-      backgroundColor: 'tan',
-      marginBottom: '30px',  
-    }}>
-      푸터 영역
-    </footer>
-  </>
+  useEffect(() => {
+    console.log('생존여부가 바뀔 때만 호출해주세요!');
+  }, [me]);
+
+  return (
+    <>
+      <div>
+        내 이름은 {me.name}이고, 나이는 {me.age}야!
+      </div>
+      <br />
+      <div>
+        <button
+          onClick={() => setIsAlive(!isAlive)}
+        >
+          누르면 살았다가 죽었다가 해요
+        </button>
+        <br />
+        생존여부 : {me.isAlive}
+      </div>
+
+      <hr />
+
+      필요없는 숫자 영역이에요!
+      <br />
+      {uselessCount}
+      <br />
+      <button
+        onClick={() => setUselessCount(uselessCount + 1)}
+      >
+        누르면 숫자가 올라가요
+      </button>
+    </>
+  );
 }
 
-export default App
+export default ObjectComponent;
