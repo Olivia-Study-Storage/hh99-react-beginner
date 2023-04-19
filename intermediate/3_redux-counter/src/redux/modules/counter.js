@@ -5,6 +5,25 @@ const initialState = {
   number: 0,
 };
 
+// action의 type을 문자열의 형태를 dispatch 안에 직접 하드코딩 또는 reducer 안에 직접 넣는 것이 아니라
+// 변수 형태로 관리하는 법에 대해 배워본다.
+// * Action Value : 액션을 상수로 만들기
+const PLUS_ONE = 'counter/PLUS_ONE';
+const MINUS_ONE = 'counter/MINUS_ONE';
+
+// * Action Creator : 액션의 value를 return하는 함수
+// ? export를 하는 이유 : 리듀서뿐만 아니라 컴포넌트에서도 사용하기 위해 export를 해준다.
+export const plusOne = () => {
+  return {
+    type: PLUS_ONE,
+  }
+};
+export const minusOne = () => {
+  return {
+    type: MINUS_ONE,
+  }
+}
+
 // TODO 코드가 이해 안간다고 절망하지 말고 그냥 함수구나 하고 넘길 것! 사용 방법이 더 중요함
 // * 리듀서 : state를 action의 type에 따라 변경하는 함수
 // input : state와 action
@@ -12,11 +31,11 @@ const initialState = {
 // action(state를 어떻게 할 것인지에 대한 표현) 객체는 타입을 가지고 있다.
 const counter = (state = initialState, action) => {
   switch (action.type) {
-    case 'PLUS_ONE':
+    case PLUS_ONE:
       return {
         number: state.number + 1,
       };
-    case 'MINUS_ONE':
+    case MINUS_ONE:
       return {
         number: state.number - 1,
       };

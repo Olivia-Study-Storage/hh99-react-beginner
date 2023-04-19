@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { plusOne, minusOne } from './redux/modules/counter';
 
 // ! Redux의 흐름
 // 1. View에서 액션이 일어난다.
@@ -26,20 +27,13 @@ function App() {
         현재 카운트 : {counter.number}
       </div>
       <button
-        onClick={() => {
-          dispatch({
-            type: 'PLUS_ONE',
-          });
-        }}
+        // 반환하는 값이 action 객체이므로 return 값을 가져올 수 있게 호출한다.
+        onClick={() => dispatch(plusOne())}
       >
         +
       </button>
       <button
-        onClick={() => {
-          dispatch({
-            type: 'MINUS_ONE',
-          });
-        }}
+        onClick={() => dispatch(minusOne())}
       >
         -
       </button>
