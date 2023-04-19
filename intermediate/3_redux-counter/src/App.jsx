@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { plusOne, minusOne } from './redux/modules/counter';
+import { plusOne, minusOne, plusN, minusN } from './redux/modules/counter';
 
 // ! Redux의 흐름
 // 1. View에서 액션이 일어난다.
@@ -14,6 +14,8 @@ import { plusOne, minusOne } from './redux/modules/counter';
 // 6. store의 state에 subscribe하고 있던 UI에 변경된 값을 준다.
 
 function App() {
+  const [number, setNumber] = useState(0);
+
   const counter = useSelector((state) => {
     return state.counter;
   });
@@ -23,17 +25,31 @@ function App() {
 
   return (
     <>
+      <div>현재 카운트 : {counter.number}</div>
       <div>
-        현재 카운트 : {counter.number}
+        {/* payload 실습을 위한 input 생성 */}
+        <input
+          type="number"
+          value={number}
+          // 값이 문자열로 들어오고 있으므로 숫자로 형변환
+          // onChange={(event) => setNumber(+event.target.value)}
+          // ? 위의 코드를 구조분해할당을 이용해본다면?
+          onChange={(event) => {
+            const { value } = event.target;
+            setNumber(+value);
+          }}
+        />
       </div>
       <button
         // 반환하는 값이 action 객체이므로 return 값을 가져올 수 있게 호출한다.
-        onClick={() => dispatch(plusOne())}
+        // onClick={() => dispatch(plusOne())}
+        onClick={() => dispatch(plusN(number))}
       >
         +
       </button>
       <button
-        onClick={() => dispatch(minusOne())}
+        // onClick={() => dispatch(minusOne())}
+        onClick={() => dispatch(minusN(number))}
       >
         -
       </button>
