@@ -13,6 +13,12 @@ import { plusOne, minusOne, plusN, minusN } from './redux/modules/counter';
 // 5. reducer의 실행결과 store에 새로운 값을 저장한다.
 // 6. store의 state에 subscribe하고 있던 UI에 변경된 값을 준다.
 
+// ! 🦆 Ducks 패턴
+// 1. Reducer 함수를 export default 한다.
+// 2. Action creator 함수들을 export 한다.
+// 3. Action type은 app/reducer/ACTION_TYPE 형태로 작성한다.
+// -> 모듈 1개에 Action Type, Action Creator, Reducer가 모두 존재하는 작성 방식
+
 function App() {
   const [number, setNumber] = useState(0);
 
