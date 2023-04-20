@@ -1,0 +1,33 @@
+#wrap {
+  width: 700px;
+  margin: auto;
+}
+
+#form,
+#name  {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+#cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.card {
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+  border-radius: 10px;
+}
