@@ -109,3 +109,14 @@ const newTodo = {
   isDone: false,
 };
 ``` 
+
+<br/><br/>
+
+# :pencil2: 간단한 회고 및 정리
+<div align="center">
+
+[![blog link](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FT0soI%2FbtsaUjah5v6%2Frk94ZyfDdDvTdtVfCmWtP1%2Fimg.png)](https://oliviakim.tistory.com/85)
+
+</div>
+
+(_이미지 클릭 시 블로그로 이동합니다._)
